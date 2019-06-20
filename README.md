@@ -153,8 +153,8 @@ print(result)
 ```python
 import statsmodels.api as sm
 X_fin = X[["LSTAT", "RM", "PTRATIO", "DIS", "B", "TAX_(0, 270]", "CHAS", "INDUS"]]
-X_int = sm.add_constant(X_fin)
-model = sm.OLS(y,X_int).fit()
+X_with_intercept = sm.add_constant(X_fin)
+model = sm.OLS(y,X_with_intercept).fit()
 model.summary()
 ```
 
@@ -173,10 +173,10 @@ model.summary()
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   215.7</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Thu, 08 Nov 2018</td> <th>  Prob (F-statistic):</th> <td>2.69e-156</td>
+  <th>Date:</th>             <td>Thu, 20 Jun 2019</td> <th>  Prob (F-statistic):</th> <td>2.69e-156</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>13:29:19</td>     <th>  Log-Likelihood:    </th> <td> -1461.3</td> 
+  <th>Time:</th>                 <td>16:17:21</td>     <th>  Log-Likelihood:    </th> <td> -1461.3</td> 
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>   506</td>      <th>  AIC:               </th> <td>   2941.</td> 
@@ -236,7 +236,7 @@ model.summary()
 <tr>
   <th>Kurtosis:</th>      <td> 7.395</td>  <th>  Cond. No.          </th> <td>    96.8</td> 
 </tr>
-</table>
+</table><br/><br/>Warnings:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 
 
 
@@ -255,6 +255,10 @@ linreg = LinearRegression()
 selector = RFE(linreg, n_features_to_select = 5)
 selector = selector.fit(X, y)
 ```
+
+    /Users/forest.polchow/anaconda3/lib/python3.6/site-packages/sklearn/utils/validation.py:761: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+      y = column_or_1d(y, warn=True)
+
 
 
 ```python
@@ -280,7 +284,8 @@ linreg.fit(X[selected_columns],y)
 
 
 
-    LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+    LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None,
+             normalize=False)
 
 
 
